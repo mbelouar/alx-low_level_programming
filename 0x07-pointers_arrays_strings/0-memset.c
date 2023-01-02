@@ -12,14 +12,12 @@
 char *_memset(char *s, char b, unsigned int n)
 
 {
-	char	*cast_str;
-	size_t	i;
+	unsigned int	i;
 
 	i = 0;
-	cast_str = (char *)s;
 	while (i < n)
 	{
-		cast_str[i] = (unsigned char)b;
+		s[i] = b;
 		i++;
 	}
 	return (s);
