@@ -1,15 +1,11 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include <stdio.h>
-
 /**
- * _putchar - Entry point
- * Desc: Entry
- *@c: value
- *Return: On success 1.
+ * File: main
+ *
+ *Desc: header file
  */
-
-int _putchar(char c);/*prototype _putchar*/
+int _putchar(char c);
 int _islower(int c);
 int _isalpha(int c);
 int _abs(int n);
