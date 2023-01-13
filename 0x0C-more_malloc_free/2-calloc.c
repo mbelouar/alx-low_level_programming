@@ -19,6 +19,9 @@ void	*_calloc(unsigned int nmemb, unsigned int size)
 	if (!str)
 		return (0);
 	while (i < size * nmemb)
-		str[i++] = 0;
+	{
+		str[i] = 0;
+		i++;
+	}
 	return (str);
 }
