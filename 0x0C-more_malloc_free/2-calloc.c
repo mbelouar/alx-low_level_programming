@@ -23,5 +23,5 @@ void	*_calloc(unsigned int nmemb, unsigned int size)
 		str[i] = 0;
 		i++;
 	}
-	return (str);
+	return ((void *)str);
 }
