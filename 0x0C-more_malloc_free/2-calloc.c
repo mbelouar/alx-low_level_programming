@@ -2,26 +2,42 @@
 #include <stdlib.h>
 
 /**
+ * _bzero - set all the bytes to 0.
+ * @dst: pointer to propigate.
+ * @size: of the memory per-byte.
+ *
+ * Return: pointer to memory area dst.
+ */
+
+void *_bzero(void *dst, unsigned int size)
+{
+	char *d = dst;
+
+	do
+		* d++ = 0;
+	while (--size != 0);
+
+	return (d);
+}
+
+/**
  * _calloc - create and array using calloc
  * @nmemb: number elements.
  * @size: size of the type.
  *
  * Return: pointer to the memory.
  */
-
-void	*_calloc(unsigned int nmemb, unsigned int size)
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	char	*str;
-	unsigned int	i;
+	void *ptr;
 
-	i = 0;
-	str = malloc(nmemb * size);
-	if (!str)
-		return (0);
-	while (i < size * nmemb)
-	{
-		str[i] = 0;
-		i++;
-	}
-	return ((void *)str);
+	if (!nmemb || !size)
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+
+	_bzero(ptr, nmemb * size);
+	return (ptr);
 }
+
