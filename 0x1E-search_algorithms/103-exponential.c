@@ -1,6 +1,41 @@
 #include "search_algos.h"
 
+int binary_search(int *array, size_t size, int value);
 int recurse_helper(int *array, size_t left, size_t right, int value);
+
+/**
+ * exponential_search - search array
+ * @array: array to search
+ * @size: size of array
+ * @value: search value
+ *
+ * Return: index of matched value; -1 if not found
+ */
+int exponential_search(int *array, size_t size, int value)
+{
+	size_t right = 1, left;
+
+	if (array == NULL)
+		return (-1);
+
+	while (right < size && array[right] < value)
+	{
+		printf("Value checked array[%lu] = [%d]\n", right, array[right]);
+		right *= 2;
+	}
+
+	if (array[right] == value)
+		return (right);
+
+	left = right / 2; /* establish left bound */
+
+	if (right >= size) /* if right is out of bounds */
+		right = size - 1;
+
+	printf("Value found between indexes [%lu] and [%lu]\n", left, right);
+
+	return (recurse_helper(array, left, right, value));
+}
 
 /**
  * binary_search - search for value in array of sorted ints

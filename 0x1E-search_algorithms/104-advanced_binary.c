@@ -1,21 +1,24 @@
 #include "search_algos.h"
 
-int recurse_helper(int *array, size_t left, size_t right, int value);
+int recurse_helper(int *array, size_t left,
+size_t right, int value, ssize_t *match);
 
 /**
- * binary_search - search for value in array of sorted ints
+ * advanced_binary - search for value in array of sorted ints
  * @array: array to search
  * @size: size of array
  * @value: value to search
  *
  * Return: index of found value; or -1 if not found
  */
-int binary_search(int *array, size_t size, int value)
+int advanced_binary(int *array, size_t size, int value)
 {
+	ssize_t match = -1;
+
 	if (array == NULL)
 		return (-1);
 
-	return (recurse_helper(array, 0, size - 1, value));
+	return (recurse_helper(array, 0, size - 1, value, &match));
 }
 
 /**
@@ -24,15 +27,17 @@ int binary_search(int *array, size_t size, int value)
  * @left: leftmost index
  * @right: rightmost index
  * @value: value to search
+ * @match: pointer to index of most recent match
  *
  * Return: index of found value; or -1 if not found
  */
-int recurse_helper(int *array, size_t left, size_t right, int value)
+int recurse_helper(int *array, size_t left,
+size_t right, int value, ssize_t *match)
 {
 	size_t i = left, mid;
 
 	if (left > right)
-		return (-1);
+		return (*match);
 
 	/* print search progress */
 	printf("Searching in array: %d", array[i++]);
@@ -45,14 +50,16 @@ int recurse_helper(int *array, size_t left, size_t right, int value)
 
 	/* check if mid is value */
 	if (array[mid] == value)
-		return (mid);
-	else if (array[mid] > value)
 	{
-		if (mid != 0)
-			return (recurse_helper(array, left, mid - 1, value));
-		else
-			return (-1);
+		*match = mid;
+		if (right - left > 1)
+			mid++;
 	}
+	else if (array[mid] < value) /* search right */
+		return (recurse_helper(array, mid + 1, right, value, match));
+
+	if (mid != 0)
+		return (recurse_helper(array, left, mid - 1, value, match));
 	else
-		return (recurse_helper(array, mid + 1, right, value));
+		return (*match);
 }
